@@ -90,6 +90,7 @@ public class GamePiece : MonoBehaviour {
 	void OnMouseEnter()
 	{
 		grid.EnterPiece (this);
+        
 	}
 
 	void OnMouseDown()
