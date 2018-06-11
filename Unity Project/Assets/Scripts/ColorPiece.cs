@@ -6,12 +6,12 @@ public class ColorPiece : MonoBehaviour {
 
 	public enum ColorType
 	{
-		YELLOW,
-		PURPLE,
-		RED,
-		BLUE,
-		GREEN,
-		PINK,
+		DEATH,
+		EARTH,
+		FIRE,
+		LIFE,
+		WATER,
+		WIND,
 		ANY,
 		COUNT
 	};
