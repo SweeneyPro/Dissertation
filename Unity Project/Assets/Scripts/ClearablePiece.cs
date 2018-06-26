@@ -7,7 +7,9 @@ public class ClearablePiece : MonoBehaviour {
 
 	private bool isBeingCleared = false;
 
-	public bool IsBeingCleared {
+    
+
+    public bool IsBeingCleared {
 		get { return isBeingCleared; }
 	}
 
@@ -42,7 +44,7 @@ public class ClearablePiece : MonoBehaviour {
 			animator.Play (clearAnimation.name);
 
 			yield return new WaitForSeconds (clearAnimation.length);
-
+            CurrencySystem.CoinAmount += 100;
 			Destroy (gameObject);
 		}
 	}

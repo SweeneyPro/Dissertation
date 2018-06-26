@@ -5,6 +5,9 @@ public class ClearLinePiece : ClearablePiece {
 
 	public bool isRow;
 
+    
+    
+
 	// Use this for initialization
 	void Start () {
 	
