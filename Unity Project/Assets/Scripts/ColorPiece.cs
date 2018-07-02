@@ -57,6 +57,7 @@ public class ColorPiece : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
+		//Debug.Log (Color.ToString ());
 	}
 	
 	// Update is called once per frame

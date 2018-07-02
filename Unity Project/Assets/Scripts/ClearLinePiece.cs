@@ -6,7 +6,7 @@ public class ClearLinePiece : ClearablePiece {
 	public bool isRow;
 
     [SerializeField]
-    private GameObject[] Particles;
+    private GameObject[] ParticlesObjects;
     
 
 	// Use this for initialization
@@ -14,7 +14,44 @@ public class ClearLinePiece : ClearablePiece {
 
         ColorPiece ColourPieceComponent = GetComponent<ColorPiece>();
 
-        //switch(ColourPieceComponent.GetComponent<sprite>)
+		switch (ColourPieceComponent.Color) 
+		{
+
+		case ColorPiece.ColorType.DEATH:
+			Instantiate (ParticlesObjects [0], transform);
+			//Debug.Log ("HEY");
+			break;
+
+		case ColorPiece.ColorType.EARTH:
+			Instantiate (ParticlesObjects [1], transform);
+			//Debug.Log ("HEY");
+			break;
+
+		case ColorPiece.ColorType.FIRE:
+			Instantiate (ParticlesObjects [2], transform);
+			//Debug.Log ("HEY");
+			break;
+
+		case ColorPiece.ColorType.LIFE:
+			Instantiate (ParticlesObjects [3], transform);
+			//Debug.Log ("HEY");
+			break;
+
+		case ColorPiece.ColorType.WATER:
+			Instantiate (ParticlesObjects [4], transform);
+			//Debug.Log ("HEY");
+			break;
+
+		case ColorPiece.ColorType.WIND:
+			Instantiate (ParticlesObjects [5], transform);
+			//Debug.Log ("HEY");
+			break;
+		}
+
+
+
+	
+
 	
 	}
 	
