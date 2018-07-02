@@ -5,11 +5,16 @@ public class ClearLinePiece : ClearablePiece {
 
 	public bool isRow;
 
-    
+    [SerializeField]
+    private GameObject[] Particles;
     
 
 	// Use this for initialization
 	void Start () {
+
+        ColorPiece ColourPieceComponent = GetComponent<ColorPiece>();
+
+        //switch(ColourPieceComponent.GetComponent<sprite>)
 	
 	}
 	

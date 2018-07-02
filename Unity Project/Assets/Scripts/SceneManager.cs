@@ -18,7 +18,7 @@ public class SceneManager : MonoBehaviour {
 
     public void MainMenuScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene-Jamie");
     }
 
     public void LevelTypeScene()
@@ -48,7 +48,7 @@ public class SceneManager : MonoBehaviour {
 
     public void ShopScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("PowerUp");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Shop");
     }
 
     public void Exit()
