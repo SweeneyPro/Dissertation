@@ -46,6 +46,11 @@ public class SceneManager : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene("StatsScene");
     }
 
+    public void ShopScene()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("PowerUp");
+    }
+
     public void Exit()
     {
         Application.Quit();
