@@ -38,11 +38,15 @@ public class MovablePiece : MonoBehaviour {
 		Vector3 startPos = transform.position;
 		Vector3 endPos = piece.GridRef.GetWorldPosition (newX, newY);
 
-		for (float t = 0; t <= 1 * time; t += Time.deltaTime) {
-			piece.transform.position = Vector3.Lerp (startPos, endPos, t / time);
-			yield return 0;
-		}
 
-		piece.transform.position = piece.GridRef.GetWorldPosition (newX, newY);
+		for (float t = 0; t <= 1 * time; t += Time.deltaTime) {
+			if (piece != null) {
+				piece.transform.position = Vector3.Lerp (startPos, endPos, t / time);
+				yield return 0;
+			}
+		}
+		if (piece != null) {
+			piece.transform.position = piece.GridRef.GetWorldPosition (newX, newY);
+		}
 	}
 }

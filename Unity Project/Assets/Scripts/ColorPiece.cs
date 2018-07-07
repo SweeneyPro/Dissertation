@@ -73,4 +73,35 @@ public class ColorPiece : MonoBehaviour {
 			sprite.sprite = colorSpriteDict [newColor];
 		}
 	}
+
+	public ColorType RandomType()
+	{
+		int random = Random.Range (0, 6);
+
+		switch (random) 
+		{
+		case 0:
+			return ColorType.DEATH;
+			break;
+		case 1:
+			return ColorType.EARTH;
+			break;
+		case 2:
+			return ColorType.FIRE;
+			break;
+		case 3:
+			return ColorType.LIFE;
+			break;
+		case 4:
+			return ColorType.WATER;
+			break;
+		case 5:
+			return ColorType.WIND;
+			break;
+
+		}
+
+
+		return ColorType.DEATH;
+	}
 }

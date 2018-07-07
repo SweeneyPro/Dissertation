@@ -35,5 +35,13 @@ public class LevelTimer : Level {
 				timeOut = true;
 			}
 		}
+
+		if (Input.GetKeyDown (KeyCode.K))
+			IncreaseTimer (10);
+	}
+
+	public void IncreaseTimer(float Time)
+	{
+		timer -= Time;
 	}
 }

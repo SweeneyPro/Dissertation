@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
+	private struct PiecePair
+	{
+		public GamePiece A;
+		public GamePiece B;
+	}
+
 	public enum PieceType
 	{
 		EMPTY,
@@ -43,6 +49,7 @@ public class Grid : MonoBehaviour {
 
 	private Dictionary<PieceType, GameObject> piecePrefabDict;
 
+	[SerializeField]
 	private GamePiece[,] pieces;
 
 	private bool inverse = false;
@@ -94,10 +101,85 @@ public class Grid : MonoBehaviour {
 
 		StartCoroutine(Fill ());
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-	
+
+
+
+		if(Input.GetKeyDown(KeyCode.H))
+			ShuffleBoard();
+
+
+		if (Input.GetKeyDown (KeyCode.L))
+			PowerupElement ();
+			
+		if (Input.GetKeyDown (KeyCode.P))
+			ClearRandomElements ();
+	}
+
+	public void ClearRandomElements()
+	{
+		List<GamePiece> ListOfPieces = new List<GamePiece> ();
+
+		for (int i = 0; i < xDim; i++) {
+			for (int j = 0; j < yDim; j++) {
+				ListOfPieces.Add (pieces [i, j]);
+			}
+		}
+			
+		int Amount = 5;
+
+		for (int i = 0; i < Amount; i++) {
+
+			//Destroy (ListOfPieces [i].gameObject);
+
+			int RandomValue = Random.Range (0, ListOfPieces.Count);
+			//ListOfPieces[RandomValue].ClearableComponent.Clear ();
+			Destroy (ListOfPieces [RandomValue].gameObject);
+		}
+
+		StartCoroutine (Fill ());
+		FillStep();
+
+	}
+
+	public void ShuffleBoard()
+	{
+
+		List<GamePiece> ListOfPieces = new List<GamePiece> ();
+		List<PiecePair> ListOfPairs = new List<PiecePair> ();
+
+		for (int i = 0; i < xDim; i++) {
+			for (int j = 0; j < yDim; j++) {
+				ListOfPieces.Add (pieces [i, j]);
+			}
+		}
+		for (int x = 0; x < ListOfPieces.Count; x++) {
+
+			PiecePair newPair;
+			newPair.A = ListOfPieces[x];
+			ListOfPieces.Remove (ListOfPieces [x]);
+
+			newPair.B = ListOfPieces [Random.Range (0, ListOfPieces.Count)];
+			Debug.Log (newPair.A.X + " " + newPair.A.Y + " gap " + newPair.B.X + " " + newPair.B.Y);
+			ListOfPairs.Add (newPair);
+		}
+		Debug.Log(ListOfPairs.Count);
+
+		for (int i = 0; i < ListOfPairs.Count; i++) {
+
+			ColorPiece.ColorType typeA = ListOfPairs [i].A.ColorComponent.Color;
+			ColorPiece.ColorType typeB = ListOfPairs [i].B.ColorComponent.Color;
+
+			ListOfPairs [i].A.ColorComponent.Color = typeB;	
+			ListOfPairs [i].B.ColorComponent.Color = typeA;
+
+			lValidMatches ();
+
+		}
+		StartCoroutine(Fill ());
+
 	}
 
 	public IEnumerator Fill()
@@ -113,7 +195,7 @@ public class Grid : MonoBehaviour {
 				yield return new WaitForSeconds (fillTime);
 			}
 
-			needsRefill = ClearAllValidMatches ();
+			needsRefill = lValidMatches ();
 		}
 
 		isFilling = false;
@@ -281,7 +363,7 @@ public class Grid : MonoBehaviour {
 					ClearPiece (piece2.X, piece2.Y);
 				}
 
-				ClearAllValidMatches ();
+				lValidMatches ();
 
 				if (piece1.Type == PieceType.ROW_CLEAR || piece1.Type == PieceType.COLUMN_CLEAR) {
 					ClearPiece (piece1.X, piece1.Y);
@@ -480,7 +562,7 @@ public class Grid : MonoBehaviour {
 		return null;
 	}
 
-	public bool ClearAllValidMatches()
+	public bool lValidMatches()
 	{
 		bool needsRefill = false;
 
@@ -537,8 +619,25 @@ public class Grid : MonoBehaviour {
 		return needsRefill;
 	}
 
+	public void PowerupElement()
+	{
+		int x = Random.Range (0, 8);
+		int y = Random.Range (0, 8);
+
+		ColorPiece.ColorType currentType = pieces [x, y].ColorComponent.Color;
+		Destroy(pieces[x,y].gameObject);
+
+		GamePiece test = SpawnNewPiece (x, y, PieceType.COLUMN_CLEAR);
+		test.ColorComponent.SetColor (currentType);
+		//pieces[1,1].
+
+	}
+
+
+
 	public bool ClearPiece(int x, int y)
 	{
+		//return true;
 		if (pieces [x, y].IsClearable () && !pieces [x, y].ClearableComponent.IsBeingCleared) {
 			pieces [x, y].ClearableComponent.Clear ();
 			SpawnNewPiece (x, y, PieceType.EMPTY);
