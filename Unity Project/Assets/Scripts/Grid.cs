@@ -74,14 +74,14 @@ public class Grid : MonoBehaviour {
 				piecePrefabDict.Add (piecePrefabs [i].type, piecePrefabs [i].prefab);
 			}
 		}
-
+		/*
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
 				GameObject background = (GameObject)Instantiate (backgroundPrefab, GetWorldPosition(x, y), Quaternion.identity);
 				background.transform.parent = transform;
 			}
 		}
-
+*/
 		pieces = new GamePiece[xDim, yDim];
 
 		for (int i = 0; i < initialPieces.Length; i++) {

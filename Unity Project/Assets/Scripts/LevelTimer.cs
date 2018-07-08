@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LevelTimer : Level {
 
 	public int timeInSeconds;
 	public int targetScore;
+
+	[SerializeField]
+	private Slider timeBar;
+
+	[SerializeField]
+	private Text CoinAmount;
 
 	private float timer;
 	private bool timeOut = false;
@@ -17,6 +24,8 @@ public class LevelTimer : Level {
 		hud.SetScore (currentScore);
 		hud.SetTarget (targetScore);
 		hud.SetRemaining (string.Format ("{0}:{1:00}", timeInSeconds / 60, timeInSeconds % 60));
+
+
 	}
 
 	// Update is called once per frame
@@ -24,7 +33,8 @@ public class LevelTimer : Level {
 		if (!timeOut) {
 			timer += Time.deltaTime;
 			hud.SetRemaining (string.Format ("{0}:{1:00}", (int)Mathf.Max((timeInSeconds - timer) / 60, 0), (int)Mathf.Max((timeInSeconds - timer) % 60, 0)));
-
+			CoinAmount.text = CurrencySystem.CoinAmount.ToString();
+			timeBar.value = 90-timer;
 			if (timeInSeconds - timer <= 0) {
 				if (currentScore >= targetScore) {
 					GameWin ();
