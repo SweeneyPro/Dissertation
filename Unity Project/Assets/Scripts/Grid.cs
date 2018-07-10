@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
+	public List<GameObject> AdjacentObjects = new List<GameObject>();
+
 	private struct PiecePair
 	{
 		public GamePiece A;
@@ -389,6 +391,51 @@ public class Grid : MonoBehaviour {
 	public void PressPiece(GamePiece piece)
 	{
 		pressedPiece = piece;
+		int xpos = piece.GetComponent<GamePiece> ().X;
+		int ypos = piece.GetComponent<GamePiece> ().Y;
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+
+				pieces [i, j].gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+			}
+		}
+
+		const int boxsize = 5;
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+
+				if ((i == 0 || i == 2) && (j == 0 || j == 2) || i == 1 && j == 1)
+					continue;
+
+				if(i+xpos-1 >= 0 && i+xpos-1 <=7 && j+ypos-1 >= 0 && j+ypos-1 <=7)
+				AdjacentObjects.Add (pieces [i+xpos-1, j+ypos-1].gameObject);
+
+				if (i == 0 || i == 2) {
+					
+					AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (boxsize*5, boxsize);
+					AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+					if(i==2)
+					AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().offset = new Vector2 ((boxsize*5 / 2)-(boxsize/2), 0);
+					if(i==0)
+						AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().offset = new Vector2 (-((boxsize*5 / 2)-(boxsize/2)), 0);
+				} else {
+					
+					AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().size = new Vector2 (boxsize, boxsize*5);
+					AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+					if(j==2)
+						AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().offset = new Vector2 (0, -(boxsize*5 / 2)+(boxsize/2));
+					if(j==0)
+						AdjacentObjects [AdjacentObjects.Count - 1].gameObject.GetComponent<BoxCollider2D> ().offset = new Vector2 (0, ((boxsize*5 / 2)-(boxsize/2)));
+				}
+
+
+			}
+		}
+		for (int i = 0; i < AdjacentObjects.Count; i++) {
+			AdjacentObjects.RemoveAt (0);
+		}
 	}
 
 	public void EnterPiece(GamePiece piece)
@@ -399,8 +446,19 @@ public class Grid : MonoBehaviour {
 	public void ReleasePiece()
 	{
 		if (IsAdjacent (pressedPiece, enteredPiece)) {
+
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+
+					pieces [i, j].gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+					pieces [i, j].gameObject.GetComponent<BoxCollider2D> ().size = Vector2.one * 5;
+					pieces [i, j].gameObject.GetComponent<BoxCollider2D> ().offset = Vector2.zero;
+				}
+			}
 			SwapPieces (pressedPiece, enteredPiece);
 		}
+
+
 	}
 
 	public List<GamePiece> GetMatch(GamePiece piece, int newX, int newY)
