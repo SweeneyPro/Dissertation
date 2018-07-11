@@ -6,6 +6,8 @@ public class Grid : MonoBehaviour {
 
 	public List<GameObject> AdjacentObjects = new List<GameObject>();
 
+	public GameObject LightningObject;
+
 	private struct PiecePair
 	{
 		public GamePiece A;
@@ -743,12 +745,15 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
-	public void ClearColor(ColorPiece.ColorType color)
+	public void ClearColor(ColorPiece.ColorType color, GameObject LightningLocation)
 	{
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
 				if (pieces [x, y].IsColored () && (pieces [x, y].ColorComponent.Color == color
 				    || color == ColorPiece.ColorType.ANY)) {
+					GameObject Lightning = Instantiate (LightningObject);
+					LightningObject.GetComponent<Electric> ().transformPointA = LightningLocation.transform.position;
+					LightningObject.GetComponent<Electric> ().transformPointB = pieces [x, y].gameObject.transform.position;
 					ClearPiece (x, y);
 				}
 			}

@@ -104,4 +104,8 @@ public class ColorPiece : MonoBehaviour {
 
 		return ColorType.DEATH;
 	}
+
+
+
+
 }

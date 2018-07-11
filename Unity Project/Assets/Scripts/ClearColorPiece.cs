@@ -23,6 +23,6 @@ public class ClearColorPiece : ClearablePiece {
 	public override void Clear()
 	{
 		base.Clear ();
-		piece.GridRef.ClearColor (color);
+		piece.GridRef.ClearColor (color, gameObject);
 	}
 }

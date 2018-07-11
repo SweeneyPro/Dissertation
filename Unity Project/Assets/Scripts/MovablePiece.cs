@@ -49,4 +49,6 @@ public class MovablePiece : MonoBehaviour {
 			piece.transform.position = piece.GridRef.GetWorldPosition (newX, newY);
 		}
 	}
+
+
 }
