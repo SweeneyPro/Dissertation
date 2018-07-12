@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.SceneManagement;
 public class GameOver : MonoBehaviour {
 
 	public GameObject screenParent;
@@ -48,8 +48,9 @@ public class GameOver : MonoBehaviour {
 		if (animator) {
 			animator.Play ("GameOverShow");
 		}
-
+		StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
 		StartCoroutine (ShowWinCoroutine (starCount));
+
 	}
 
 	private IEnumerator ShowWinCoroutine(int starCount)
@@ -67,7 +68,7 @@ public class GameOver : MonoBehaviour {
 				yield return new WaitForSeconds (0.5f);
 			}
 		}
-
+		StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
 		scoreText.enabled = true;
 	}
 
@@ -78,6 +79,7 @@ public class GameOver : MonoBehaviour {
 
 	public void OnDoneClicked()
 	{
+		
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("levelSelect");
 	}
 }

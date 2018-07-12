@@ -51,6 +51,11 @@ public class SceneManager : MonoBehaviour {
         UnityEngine.SceneManagement.SceneManager.LoadScene("Shop");
     }
 
+	public void LevelSelectScene()
+	{
+		UnityEngine.SceneManagement.SceneManager.LoadScene("levelSelect");
+	}
+
     public void Exit()
     {
         Application.Quit();

@@ -22,7 +22,8 @@ public class Electric : MonoBehaviour
     private Vector2 mainTextureOffset = Vector2.one;
 
     private float timer;
-    private float timerTimeOut = 0.05f;
+	[SerializeField]
+	private float timerTimeOut = 0.05f;
 
     private void Start ()
     {
@@ -53,8 +54,8 @@ public class Electric : MonoBehaviour
 			float distance = Vector3.Distance(transformPointA, transformPointB) / points.Length;
             mainTextureScale.x = distance;
             mainTextureOffset.x = Random.Range(-randomness, randomness);
-            lRend.material.SetTextureScale(mainTexture, mainTextureScale);
-            lRend.material.SetTextureOffset(mainTexture, mainTextureOffset);
+            //lRend.material.SetTextureScale(mainTexture, mainTextureScale);
+            //lRend.material.SetTextureOffset(mainTexture, mainTextureOffset);
 
             randomness = distance / (pointsCount * half);
 
