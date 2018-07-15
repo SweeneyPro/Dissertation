@@ -6,8 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class SceneManager : MonoBehaviour {
 
+	AudioClip ButtonNoise;
+
 	// Use this for initialization
 	void Start () {
+
+
 		
 	}
 	
@@ -16,44 +20,61 @@ public class SceneManager : MonoBehaviour {
 		
 	}
 
+	private IEnumerator ChangeScene(string scene){
+		yield return new WaitForSeconds (0.2f);
+		UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
+	}
+
     public void MainMenuScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenuScene-Jamie");
+		GetComponent<AudioSource> ().Play ();
+
+		StartCoroutine(ChangeScene("MainMenuScene-Jamie"));
+
+
     }
 
     public void LevelTypeScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameTypeScene");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("GameTypeScene"));
+
     }
 
     public void BlitzScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Blitz");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("Blitz"));
     }
 
     public void PuzzleScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Puzzle");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("Puzzle"));
     }
 
     public void SettingsScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("SettingsScene");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("SettingsScene"));
     }
 
     public void StatsScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("StatsScene");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("StatsScene"));
     }
 
     public void ShopScene()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Shop");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("Shop"));
     }
 
 	public void LevelSelectScene()
 	{
-		UnityEngine.SceneManagement.SceneManager.LoadScene("levelSelect");
+		GetComponent<AudioSource> ().Play ();
+		StartCoroutine(ChangeScene("levelSelect"));
 	}
 
     public void Exit()

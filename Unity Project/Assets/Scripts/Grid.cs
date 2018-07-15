@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class Grid : MonoBehaviour {
 
 	public List<GameObject> AdjacentObjects = new List<GameObject>();
 
 	public GameObject LightningObject;
+
+	[SerializeField]
+	private AudioClip WrongClearSound;
+
+	public GameObject[] PowerUpIcons;
+
+	public Sprite[] PowerUpAssets;
+
+	public Sprite NoGem;
 
 	private struct PiecePair
 	{
@@ -104,6 +114,7 @@ public class Grid : MonoBehaviour {
 		}
 
 		StartCoroutine(Fill ());
+		AssignPowerUps ();
 	}
 
 	// Update is called once per frame
@@ -120,6 +131,43 @@ public class Grid : MonoBehaviour {
 			
 		if (Input.GetKeyDown (KeyCode.P))
 			ClearRandomElements ();
+	}
+
+	private void AssignPowerUps()
+	{
+
+		for (int i = 0; i < PowerUpIcons.Length; i++) {
+
+			if (CurrencySystem.PowerUps [i] == "Shuffle") {
+
+				PowerUpIcons [i].GetComponent<Image> ().sprite = PowerUpAssets [0];
+				PowerUpIcons [i].GetComponent<Button> ().onClick.AddListener (ShuffleBoard);
+
+			} else if (CurrencySystem.PowerUps [i] == "Time") {
+
+				PowerUpIcons [i].GetComponent<Image> ().sprite = PowerUpAssets [1];
+				PowerUpIcons [i].GetComponent<Button> ().onClick.AddListener (TimePowerUp);
+				
+			} else if (CurrencySystem.PowerUps [i] == "PowerUp") {
+
+				PowerUpIcons [i].GetComponent<Image> ().sprite = PowerUpAssets [2];
+				PowerUpIcons [i].GetComponent<Button> ().onClick.AddListener (PowerupElement);
+			}
+
+		}
+
+	}
+
+	public void TurnOfPowerUp(int index)
+	{
+		PowerUpIcons [index].GetComponent<Image> ().sprite = NoGem;
+		PowerUpIcons [index].GetComponent<Button> ().onClick.RemoveAllListeners ();
+
+	}
+
+	public void TimePowerUp()
+	{
+		level.GetComponent<LevelTimer> ().IncreaseTimer ();
 	}
 
 	public void ClearRandomElements()
@@ -166,7 +214,7 @@ public class Grid : MonoBehaviour {
 			ListOfPieces.Remove (ListOfPieces [x]);
 
 			newPair.B = ListOfPieces [Random.Range (0, ListOfPieces.Count)];
-			Debug.Log (newPair.A.X + " " + newPair.A.Y + " gap " + newPair.B.X + " " + newPair.B.Y);
+			//Debug.Log (newPair.A.X + " " + newPair.A.Y + " gap " + newPair.B.X + " " + newPair.B.Y);
 			ListOfPairs.Add (newPair);
 		}
 		Debug.Log(ListOfPairs.Count);
@@ -386,6 +434,7 @@ public class Grid : MonoBehaviour {
 			} else {
 				pieces [piece1.X, piece1.Y] = piece1;
 				pieces [piece2.X, piece2.Y] = piece2;
+				GetComponent<AudioSource> ().Play ();
 			}
 		}
 	}
@@ -497,8 +546,7 @@ public class Grid : MonoBehaviour {
 
 
 			SwapPieces (pressedPiece, enteredPiece);
-		}
-
+		} 
 
 	}
 
@@ -670,6 +718,9 @@ public class Grid : MonoBehaviour {
 				if (pieces [x, y].IsClearable ()) {
 					List<GamePiece> match = GetMatch (pieces [x, y], x, y);
 
+
+						
+
 					if (match != null) {
 						PieceType specialPieceType = PieceType.COUNT;
 						GamePiece randomPiece = match [Random.Range (0, match.Count)];
@@ -736,12 +787,14 @@ public class Grid : MonoBehaviour {
 
 	public bool ClearPiece(int x, int y)
 	{
-		//return true;
+		
 		if (pieces [x, y].IsClearable () && !pieces [x, y].ClearableComponent.IsBeingCleared) {
 			pieces [x, y].ClearableComponent.Clear ();
 			SpawnNewPiece (x, y, PieceType.EMPTY);
 
 			ClearObstacles (x, y);
+
+
 
 			return true;
 		}
@@ -775,6 +828,8 @@ public class Grid : MonoBehaviour {
 		for (int x = 0; x < xDim; x++) {
 			ClearPiece (x, row);
 		}
+
+
 	}
 
 	public void ClearColumn(int column)
@@ -782,10 +837,13 @@ public class Grid : MonoBehaviour {
 		for (int y = 0; y < yDim; y++) {
 			ClearPiece (column, y);
 		}
+
+
 	}
 
 	public void ClearColor(ColorPiece.ColorType color, GameObject LightningLocation)
 	{
+		
 		for (int x = 0; x < xDim; x++) {
 			for (int y = 0; y < yDim; y++) {
 				if (pieces [x, y].IsColored () && (pieces [x, y].ColorComponent.Color == color

@@ -47,11 +47,11 @@ public class LevelTimer : Level {
 		}
 
 		if (Input.GetKeyDown (KeyCode.K))
-			IncreaseTimer (10);
+			IncreaseTimer ();
 	}
 
-	public void IncreaseTimer(float Time)
+	public void IncreaseTimer()
 	{
-		timer -= Time;
+		timer -= 20;
 	}
 }

@@ -7,7 +7,7 @@ public class ClearablePiece : MonoBehaviour {
 
 	private bool isBeingCleared = false;
 
-    
+	public GameObject SoundSpawner;
 
     public bool IsBeingCleared {
 		get { return isBeingCleared; }
@@ -33,6 +33,9 @@ public class ClearablePiece : MonoBehaviour {
 	{
 		piece.GridRef.level.OnPieceCleared (piece);
 		isBeingCleared = true;
+
+		if(SoundSpawner)
+			Instantiate (SoundSpawner);
 		StartCoroutine (ClearCoroutine ());
 	}
 

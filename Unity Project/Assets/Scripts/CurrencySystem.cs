@@ -6,6 +6,8 @@ public class CurrencySystem : MonoBehaviour {
 
     public static int CoinAmount;
 
+	public static string[] PowerUps = { "", "", "" };
+
     public void Awake()
     {
         DontDestroyOnLoad(this);
@@ -21,6 +23,7 @@ public class CurrencySystem : MonoBehaviour {
        
 
         CoinAmount = PlayerPrefs.GetInt("Coins");
+
 	}
 	
 	// Update is called once per frame
