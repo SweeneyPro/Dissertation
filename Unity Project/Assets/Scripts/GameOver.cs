@@ -26,8 +26,8 @@ public class GameOver : MonoBehaviour {
 	public void ShowLose()
 	{
 		screenParent.SetActive (true);
-		scoreParent.SetActive (false);
-
+		scoreParent.SetActive (true);
+		scoreText.enabled = true;
 		Animator animator = GetComponent<Animator> ();
 
 		if (animator) {
@@ -38,17 +38,18 @@ public class GameOver : MonoBehaviour {
 	public void ShowWin(int score, int starCount)
 	{
 		screenParent.SetActive (true);
-		loseText.enabled = false;
+		loseText.enabled = true;
 
 		scoreText.text = score.ToString ();
-		scoreText.enabled = false;
+		scoreText.enabled = true;
+		//scoreText.transform.parent.transform.gameObject.SetActive(true);
 
 		Animator animator = GetComponent<Animator> ();
 
 		if (animator) {
 			animator.Play ("GameOverShow");
 		}
-		StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
+		//StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
 		StartCoroutine (ShowWinCoroutine (starCount));
 
 	}
@@ -68,7 +69,7 @@ public class GameOver : MonoBehaviour {
 				yield return new WaitForSeconds (0.5f);
 			}
 		}
-		StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
+		//StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
 		scoreText.enabled = true;
 	}
 

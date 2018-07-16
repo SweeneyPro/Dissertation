@@ -435,6 +435,7 @@ public class Grid : MonoBehaviour {
 				pieces [piece1.X, piece1.Y] = piece1;
 				pieces [piece2.X, piece2.Y] = piece2;
 				GetComponent<AudioSource> ().Play ();
+				Handheld.Vibrate ();
 			}
 		}
 	}

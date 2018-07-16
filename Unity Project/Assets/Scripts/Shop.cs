@@ -24,17 +24,23 @@ public class Shop : MonoBehaviour {
 	private Sprite Powerup;
 
 
-
+	[SerializeField]
+	private Text CoinAmountText;
 
 
 	// Use this for initialization
 	void Start () {
-		
+		UpdateCoinAmount ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	private void UpdateCoinAmount()
+	{
+		CoinAmountText.text = CurrencySystem.CoinAmount.ToString();
 	}
 
     public void OpenShopItem(int ShopItem)
@@ -76,6 +82,7 @@ public class Shop : MonoBehaviour {
 			}
 			EquipItem ();
         }
+		UpdateCoinAmount ();
     }
 
 	public void BuyTimeBoost(int ItemPrice)
@@ -103,7 +110,7 @@ public class Shop : MonoBehaviour {
 			EquipItem ();
 		}
 
-
+		UpdateCoinAmount ();
 	}
 
 	public void BuyGemPowerUp(int ItemPrice)
@@ -132,6 +139,7 @@ public class Shop : MonoBehaviour {
 			EquipItem ();
 
 		}
+		UpdateCoinAmount ();
 	}
 
 	private void EquipItem()

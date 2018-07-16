@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CurrencySystem : MonoBehaviour {
 
+	public static int HighScore;
+
     public static int CoinAmount;
 
 	public static string[] PowerUps = { "", "", "" };
