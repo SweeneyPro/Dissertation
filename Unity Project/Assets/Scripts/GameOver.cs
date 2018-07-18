@@ -49,7 +49,7 @@ public class GameOver : MonoBehaviour {
 		if (animator) {
 			animator.Play ("GameOverShow");
 		}
-		//StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
+		StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
 		StartCoroutine (ShowWinCoroutine (starCount));
 
 	}
@@ -69,7 +69,7 @@ public class GameOver : MonoBehaviour {
 				yield return new WaitForSeconds (0.5f);
 			}
 		}
-		//StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
+		StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
 		scoreText.enabled = true;
 	}
 
