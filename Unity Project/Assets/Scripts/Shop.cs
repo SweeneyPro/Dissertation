@@ -31,6 +31,7 @@ public class Shop : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		UpdateCoinAmount ();
+		EquipItem ();
 	}
 	
 	// Update is called once per frame

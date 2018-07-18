@@ -162,6 +162,7 @@ public class Grid : MonoBehaviour {
 	{
 		PowerUpIcons [index].GetComponent<Image> ().sprite = NoGem;
 		PowerUpIcons [index].GetComponent<Button> ().onClick.RemoveAllListeners ();
+		CurrencySystem.PowerUps [index] = "";
 
 	}
 

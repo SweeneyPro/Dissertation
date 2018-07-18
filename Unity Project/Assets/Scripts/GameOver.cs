@@ -23,13 +23,13 @@ public class GameOver : MonoBehaviour {
 	
 	}
 
-	public void ShowLose()
+	public void ShowLose(int score)
 	{
 		screenParent.SetActive (true);
 		scoreParent.SetActive (true);
 		scoreText.enabled = true;
 		Animator animator = GetComponent<Animator> ();
-
+		scoreText.text = score.ToString ();
 		if (animator) {
 			animator.Play ("GameOverShow");
 		}

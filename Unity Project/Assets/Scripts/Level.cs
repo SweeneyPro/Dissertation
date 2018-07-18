@@ -71,7 +71,7 @@ public class Level : MonoBehaviour {
 		if (didWin) {
 			hud.OnGameWin (currentScore);
 		} else {
-			hud.OnGameLose ();
+			hud.OnGameLose (currentScore);
 		}
 	}
 }

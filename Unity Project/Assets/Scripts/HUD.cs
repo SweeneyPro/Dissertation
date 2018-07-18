@@ -93,8 +93,8 @@ public class HUD : MonoBehaviour {
 		}
 	}
 
-	public void OnGameLose()
+	public void OnGameLose(int score)
 	{
-		gameOver.ShowLose ();
+		gameOver.ShowLose (score);
 	}
 }

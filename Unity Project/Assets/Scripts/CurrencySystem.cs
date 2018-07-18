@@ -25,19 +25,28 @@ public class CurrencySystem : MonoBehaviour {
        
 
         CoinAmount = PlayerPrefs.GetInt("Coins");
+		HighScore = PlayerPrefs.GetInt ("Highscore");
+
+		PowerUps [0] = PlayerPrefs.GetString ("Equipment1");
+		PowerUps [1] = PlayerPrefs.GetString ("Equipment2");
+		PowerUps [2] = PlayerPrefs.GetString ("Equipment3");
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        Debug.Log(CoinAmount); 
+        //Debug.Log(CoinAmount); 
         
 	}
 
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("Coins", CoinAmount);
+		PlayerPrefs.SetInt ("Highscore", HighScore);
+		PlayerPrefs.SetString ("Equipment1", PowerUps [0]);
+		PlayerPrefs.SetString ("Equipment2", PowerUps [1]);
+		PlayerPrefs.SetString ("Equipment3", PowerUps [2]);
     }
 
 }
