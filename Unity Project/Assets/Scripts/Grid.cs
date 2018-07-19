@@ -222,14 +222,16 @@ public class Grid : MonoBehaviour {
 
 		for (int i = 0; i < ListOfPairs.Count; i++) {
 
-			ColorPiece.ColorType typeA = ListOfPairs [i].A.ColorComponent.Color;
-			ColorPiece.ColorType typeB = ListOfPairs [i].B.ColorComponent.Color;
+			if (ListOfPairs [i].A.gameObject.name.Contains("Normal") && ListOfPairs [i].B.gameObject.name.Contains("Normal")) {
 
-			ListOfPairs [i].A.ColorComponent.Color = typeB;	
-			ListOfPairs [i].B.ColorComponent.Color = typeA;
+				ColorPiece.ColorType typeA = ListOfPairs [i].A.ColorComponent.Color;
+				ColorPiece.ColorType typeB = ListOfPairs [i].B.ColorComponent.Color;
 
-			lValidMatches ();
+				ListOfPairs [i].A.ColorComponent.Color = typeB;	
+				ListOfPairs [i].B.ColorComponent.Color = typeA;
 
+				lValidMatches ();
+			}
 		}
 		StartCoroutine(Fill ());
 
@@ -274,13 +276,19 @@ public class Grid : MonoBehaviour {
 				{
 					GamePiece pieceBelow = pieces [x, y + 1];
 
+
+						
+
 					if (pieceBelow.Type == PieceType.EMPTY) {
 						Destroy (pieceBelow.gameObject);
 						piece.MovableComponent.Move (x, y + 1, fillTime);
 						pieces [x, y + 1] = piece;
 						SpawnNewPiece (x, y, PieceType.EMPTY);
 						movedPiece = true;
+
+
 					} else {
+						
 						for (int diag = -1; diag <= 1; diag++)
 						{
 							if (diag != 0)
@@ -306,6 +314,7 @@ public class Grid : MonoBehaviour {
 
 											if (pieceAbove.IsMovable ())
 											{
+												
 												break;
 											}
 											else if(!pieceAbove.IsMovable() && pieceAbove.Type != PieceType.EMPTY)
@@ -322,6 +331,7 @@ public class Grid : MonoBehaviour {
 											pieces [diagX, y + 1] = piece;
 											SpawnNewPiece (x, y, PieceType.EMPTY);
 											movedPiece = true;
+
 											break;
 										}
 									} 
@@ -329,6 +339,12 @@ public class Grid : MonoBehaviour {
 							}
 						}
 					}
+				}
+
+				if (movedPiece == false) {
+					//piece.transform.Translate (Vector3.up);
+					//piece.MovableComponent.Move (x,y+1, fillTime);
+					//movedPiece = true;
 				}
 			}
 		}
@@ -348,7 +364,10 @@ public class Grid : MonoBehaviour {
 				pieces [x, 0].MovableComponent.Move (x, 0, fillTime);
 				pieces [x, 0].ColorComponent.SetColor ((ColorPiece.ColorType)Random.Range (0, pieces [x, 0].ColorComponent.NumColors));
 				movedPiece = true;
+
 			}
+
+
 		}
 
 		return movedPiece;
