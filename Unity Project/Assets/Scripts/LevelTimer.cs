@@ -34,7 +34,7 @@ public class LevelTimer : Level {
 			timer += Time.deltaTime;
 			hud.SetRemaining (string.Format ("{0}:{1:00}", (int)Mathf.Max((timeInSeconds - timer) / 60, 0), (int)Mathf.Max((timeInSeconds - timer) % 60, 0)));
 			CoinAmount.text = CurrencySystem.CoinAmount.ToString();
-			timeBar.value = 90-timer;
+			timeBar.value = 60-timer;
 			if (timeInSeconds - timer <= 0) {
 				if (currentScore >= targetScore) {
 					GameWin ();

@@ -6,10 +6,10 @@ public static class StoryProgress {
 
 
 
-	public static int[] LevelStars = new int[3];
+	public static int[] LevelStars = new int[30];
 
 
-	public static int[] score = new int[3];
+	public static int[] score = new int[30];
 
 
 	
