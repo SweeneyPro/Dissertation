@@ -47,7 +47,7 @@ public class ClearablePiece : MonoBehaviour {
 			animator.Play (clearAnimation.name);
 
 			yield return new WaitForSeconds (clearAnimation.length);
-            CurrencySystem.CoinAmount += 100;
+			CurrencySystem.CoinAmount += GetComponent<Coins> ().CoinValue;
 			Destroy (gameObject);
 		}
 	}
