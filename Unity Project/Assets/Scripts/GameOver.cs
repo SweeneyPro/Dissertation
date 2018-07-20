@@ -50,6 +50,7 @@ public class GameOver : MonoBehaviour {
 			animator.Play ("GameOverShow");
 		}
 		StoryProgress.score[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = score;
+        PlayerPrefs.SetInt("StoryScore" + (int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) - 1), score);
 		StartCoroutine (ShowWinCoroutine (starCount));
 
 	}
@@ -70,7 +71,8 @@ public class GameOver : MonoBehaviour {
 			}
 		}
 		StoryProgress.LevelStars[int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene ().name)-1] = starCount;
-		scoreText.enabled = true;
+        PlayerPrefs.SetInt("StoryStar" + (int.Parse(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name) - 1), starCount);
+        scoreText.enabled = true;
 	}
 
 	public void OnReplayClicked()
