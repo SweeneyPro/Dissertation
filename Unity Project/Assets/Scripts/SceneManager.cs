@@ -71,6 +71,13 @@ public class SceneManager : MonoBehaviour {
 		StartCoroutine(ChangeScene("Shop"));
     }
 
+    public void ShopSceneStory()
+    {
+
+        GetComponent<AudioSource>().Play();
+        StartCoroutine(ChangeScene("Shop 1"));
+    }
+
 	public void LevelSelectScene()
 	{
 		GetComponent<AudioSource> ().Play ();
