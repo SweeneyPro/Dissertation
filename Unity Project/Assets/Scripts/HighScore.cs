@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HighScore : MonoBehaviour {
 
 	public Text HighScoreSlot;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -24,5 +25,6 @@ public class HighScore : MonoBehaviour {
 
 		//GetComponent<Text> ().text = CurrencySystem.HighScore.ToString();
 		HighScoreSlot.text = CurrencySystem.HighScore.ToString();
-	}
+        
+    }
 }

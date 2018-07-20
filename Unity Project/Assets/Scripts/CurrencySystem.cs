@@ -31,14 +31,31 @@ public class CurrencySystem : MonoBehaviour {
 		PowerUps [1] = PlayerPrefs.GetString ("Equipment2");
 		PowerUps [2] = PlayerPrefs.GetString ("Equipment3");
 
-	}
+        for (int i = 0; i < StoryProgress.score.Length; i++)
+        {
+            StoryProgress.score[i] = PlayerPrefs.GetInt("StoryScore" + i);
+        }
+
+        for (int i = 0; i < StoryProgress.LevelStars.Length; i++)
+        {
+            StoryProgress.LevelStars[i] = PlayerPrefs.GetInt("StoryStar" + i);
+        }
+
+        
+       
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
         //Debug.Log(CoinAmount); 
-        
-	}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            print("SAVES CLEARED");
+            PlayerPrefs.DeleteAll();
+
+        }
+    }
 
     private void OnApplicationQuit()
     {
@@ -47,6 +64,16 @@ public class CurrencySystem : MonoBehaviour {
 		PlayerPrefs.SetString ("Equipment1", PowerUps [0]);
 		PlayerPrefs.SetString ("Equipment2", PowerUps [1]);
 		PlayerPrefs.SetString ("Equipment3", PowerUps [2]);
+
+        for (int i = 0; i < StoryProgress.score.Length; i++)
+        {
+            PlayerPrefs.SetInt("StoryScore" + i, StoryProgress.score[i]);
+        }
+
+        for (int i = 0; i < StoryProgress.LevelStars.Length; i++)
+        {
+            PlayerPrefs.SetInt("StoryStar" + i, StoryProgress.LevelStars[i]);
+        }
     }
 
 }
